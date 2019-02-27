@@ -1,4 +1,8 @@
-F405_TARGETS   += $(TARGET)
+ifeq ($(TARGET), ELINF722)
+	F7X2RE_TARGETS += $(TARGET) 
+else
+	F405_TARGETS   += $(TARGET)
+endif
 ifeq ($(TARGET), AIRBOTF4SD)
 FEATURES       = VCP SDCARD_SPI
 else

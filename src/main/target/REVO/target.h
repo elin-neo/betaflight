@@ -40,6 +40,10 @@
 #define TARGET_BOARD_IDENTIFIER "ELIN"
 #define USBD_PRODUCT_STRING     "ElinF405"
 
+#elif defined(ELINF722)
+#define TARGET_BOARD_IDENTIFIER "ELIN"
+#define USBD_PRODUCT_STRING     "ElinF722"
+
 #else
 #define TARGET_BOARD_IDENTIFIER "REVO"
 #define USBD_PRODUCT_STRING     "Revolution"
@@ -65,7 +69,7 @@
 #define USE_BEEPER
 #define BEEPER_PIN              PB6
 #define BEEPER_INVERTED
-#elif defined(ELINF405)
+#elif defined(ELINF405) || defined(ELINF722)
 #define USE_BEEPER
 #define BEEPER_PIN              PB4
 #else
@@ -79,6 +83,7 @@
 // PC0 used as inverter select GPIO
 #ifdef AIRBOTF4SD
 #define INVERTER_PIN_UART6      PD2
+#elif defined(ELINF722)
 #else
 #define INVERTER_PIN_UART1      PC0
 #endif
@@ -124,7 +129,7 @@
 #define GYRO_1_CS_PIN           PA4
 #define GYRO_1_SPI_INSTANCE     SPI1
 
-#elif defined(ELINF405)
+#elif defined(ELINF405) || defined(ELINF722)
 
 #define USE_GYRO_SPI_MPU6500
 #define GYRO_1_ALIGN            CW0_DEG
@@ -154,10 +159,10 @@
 #define GYRO_1_EXTI_PIN         PC4
 #define USE_MPU_DATA_READY_SIGNAL
 
-#if defined(ELINF405)
+#if defined(ELINF405) || defined(ELINF722)
 
 #define USE_OSD
-#define DEFAULT_FEATURES        FEATURE_OSD
+#define DEFAULT_FEATURES        (FEATURE_OSD | FEATURE_SOFTSERIAL)
 #define USE_MAX7456
 #define MAX7456_SPI_INSTANCE    SPI2
 #define MAX7456_SPI_CS_PIN      PC8
@@ -212,6 +217,9 @@
 #if defined(PODIUMF4)
 #define USE_USB_DETECT
 #define USB_DETECT_PIN          PA8
+#elif defined(ELINF722)
+#define USE_USB_DETECT
+#define USB_DETECT_PIN          PC15
 #else
 #define USE_USB_DETECT
 #define USB_DETECT_PIN          PC5
@@ -225,7 +233,7 @@
 #define UART3_RX_PIN            PB11
 #define UART3_TX_PIN            PB10
 
-#if defined(REVO) || defined(ELINF405)
+#if defined(REVO) || defined(ELINF405) || defined(ELINF722)
 #define USE_UART4
 #define UART4_RX_PIN            PA1
 #define UART4_TX_PIN            PA0
@@ -235,7 +243,7 @@
 #define UART6_RX_PIN            PC7
 #define UART6_TX_PIN            PC6
 
-#if defined(ELINF405)
+#if defined(ELINF405) || defined(ELINF722)
 #define PINIO1_PIN              PC13
 #define PINIO2_PIN              PC14
 
@@ -249,16 +257,17 @@
 #endif
 
 #define USE_SOFTSERIAL1
+#define SOFTSERIAL1_TX_PIN      PC9
 #define USE_SOFTSERIAL2
 
-#if defined(REVO) || defined(ELINF405)
+#if defined(REVO) || defined(ELINF405) || defined(ELINF722)
 #define SERIAL_PORT_COUNT       7 //VCP, USART1, USART3, UART4,  USART6, SOFTSERIAL x 2
 #else
 #define SERIAL_PORT_COUNT       6 //VCP, USART1, USART3, USART6, SOFTSERIAL x 2
 #endif
 
 #define USE_ESCSERIAL
-#if defined(ELINF405)
+#if defined(ELINF405) || defined(ELINF722)
 #define ESCSERIAL_TIMER_TX_PIN  PC6
 #else
 #define ESCSERIAL_TIMER_TX_PIN  PB14  // (HARDARE=0,PPM)
@@ -266,7 +275,7 @@
 
 #define USE_SPI
 
-#if defined(ELINF405)
+#if defined(ELINF405) || defined(ELINF722)
 #define USE_SPI_DEVICE_1
 #define SPI1_NSS_PIN            PA4
 #define SPI1_SCK_PIN            PA5
@@ -308,11 +317,16 @@
 #endif
 
 #define USE_ADC
-#if !defined(PODIUMF4)
+#if defined(PODIUMF4)
+#define VBAT_ADC_PIN            PC3
+#elif defined(ELINF405) || defined(ELINF722)
 #define CURRENT_METER_ADC_PIN   PC1
 #define VBAT_ADC_PIN            PC2
+#define DEFAULT_CURRENT_METER_SOURCE CURRENT_METER_ADC
+#define DEFAULT_VOLTAGE_METER_SOURCE VOLTAGE_METER_ADC 
 #else
-#define VBAT_ADC_PIN            PC3
+#define CURRENT_METER_ADC_PIN   PC1
+#define VBAT_ADC_PIN            PC2
 #endif
 
 #if defined(AIRBOTF4SD)
@@ -326,7 +340,7 @@
 #define SERIALRX_PROVIDER       SERIALRX_SBUS
 #define SERIALRX_UART           SERIAL_PORT_USART6
 #define DEFAULT_FEATURES        FEATURE_TELEMETRY
-#elif defined(ELINF405)
+#elif defined(ELINF405) || defined(ELINF722)
 #define SERIALRX_PROVIDER       SERIALRX_SBUS
 #define SERIALRX_UART           SERIAL_PORT_USART1
 #endif
@@ -339,8 +353,8 @@
 #if defined(AIRBOTF4) || defined(AIRBOTF4SD)
 #define USABLE_TIMER_CHANNEL_COUNT 13
 #define USED_TIMERS             ( TIM_N(1) | TIM_N(2) | TIM_N(3) | TIM_N(5) | TIM_N(8) | TIM_N(12) )
-#elif defined(ELINF405)
-#define USABLE_TIMER_CHANNEL_COUNT 8
+#elif defined(ELINF405) || defined(ELINF722)
+#define USABLE_TIMER_CHANNEL_COUNT 10
 #define USED_TIMERS             ( TIM_N(1) | TIM_N(2) | TIM_N(3) | TIM_N(4) | TIM_N(8) | TIM_N(11) )
 #else
 #define USABLE_TIMER_CHANNEL_COUNT 12
