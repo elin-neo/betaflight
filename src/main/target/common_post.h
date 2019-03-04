@@ -145,6 +145,14 @@
 #define USE_RX_CC2500
 #endif
 
+#if !defined(USE_RX_CC2500)
+#undef USE_RX_CC2500_SPI_PA_LNA
+#endif
+
+#if !defined(USE_RX_CC2500_SPI_PA_LNA)
+#undef USE_RX_CC2500_SPI_DIVERSITY
+#endif
+
 // Burst dshot to default off if not configured explicitly by target
 #ifndef ENABLE_DSHOT_DMAR
 #define ENABLE_DSHOT_DMAR false
@@ -275,4 +283,14 @@
 #ifndef USE_BEEPER
 #undef BEEPER_PIN
 #undef BEEPER_PWM_HZ
+#endif
+
+#if !defined(USE_DMA_SPEC)
+#undef USE_TIMER_MGMT
+#endif
+
+#if defined(USE_TIMER_MGMT)
+#undef USED_TIMERS
+#else
+#undef USE_UNIFIED_TARGET
 #endif

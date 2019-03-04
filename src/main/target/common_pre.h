@@ -63,7 +63,9 @@
 #define USE_USB_MSC
 #define USE_PERSISTENT_MSC_RTC
 #define USE_DMA_SPEC
-#define USE_SPI_TRANSACTION
+#define USE_TIMER_MGMT
+// Re-enable this after 4.0 has been released, and remove the define from STM32F4DISCOVERY
+//#define USE_SPI_TRANSACTION
 
 #if defined(STM32F40_41xxx) || defined(STM32F411xE)
 #define USE_OVERCLOCK
@@ -76,6 +78,8 @@
 #define USE_ITCM_RAM
 #define USE_FAST_RAM
 #define USE_DSHOT
+#define USE_DSHOT_TELEMETRY
+#define USE_RPM_FILTER
 #define I2C3_OVERCLOCK true
 #define I2C4_OVERCLOCK true
 #define USE_GYRO_DATA_ANALYSE
@@ -86,7 +90,9 @@
 #define USE_PERSISTENT_MSC_RTC
 #define USE_MCO
 #define USE_DMA_SPEC
-#define USE_SPI_TRANSACTION
+#define USE_TIMER_MGMT
+// Re-enable this after 4.0 has been released, and remove the define from STM32F4DISCOVERY
+//#define USE_SPI_TRANSACTION
 #endif // STM32F7
 
 #if defined(STM32F4) || defined(STM32F7)
