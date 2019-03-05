@@ -250,6 +250,9 @@
 #define DEFAULT_MIXER           MIXER_QUADX
 #define ENABLE_DSHOT_DMAR       true
 #define USE_TARGET_CONFIG
+#define SOFTSERIAL1_TX_PIN      PC9
+#define SOFTSERIAL2_RX_PIN      PA8
+
 #else
 
 #define PINIO1_PIN              PC8 // DTR pin
@@ -257,7 +260,6 @@
 #endif
 
 #define USE_SOFTSERIAL1
-#define SOFTSERIAL1_TX_PIN      PC9
 #define USE_SOFTSERIAL2
 
 #if defined(REVO) || defined(ELINF405) || defined(ELINF722)
@@ -268,7 +270,7 @@
 
 #define USE_ESCSERIAL
 #if defined(ELINF405) || defined(ELINF722)
-#define ESCSERIAL_TIMER_TX_PIN  PC6
+#define ESCSERIAL_TIMER_TX_PIN  PB6
 #else
 #define ESCSERIAL_TIMER_TX_PIN  PB14  // (HARDARE=0,PPM)
 #endif
